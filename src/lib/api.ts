@@ -181,6 +181,33 @@ export const authAPI = {
       method: 'PUT',
       body: JSON.stringify(payload),
     }),
+
+  toggleOtp: (enabled: boolean) =>
+    apiFetch('/auth/toggle-otp', {
+      method: 'PUT',
+      body: JSON.stringify({ enabled }),
+    }),
+
+  verifyOtp: (tempToken: string, otp: string) =>
+    apiFetch<AuthResponse>('/auth/verify-otp', {
+      method: 'POST',
+      body: JSON.stringify({ tempToken, otp }),
+    }),
+
+  // ─── ADD these to the authAPI object in src/lib/api.ts ────────
+  // Add alongside the existing methods (register, login, logout, etc.)
+
+  forgotPassword: (email: string) =>
+    apiFetch('/auth/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    }),
+
+  resetPassword: (token: string, newPassword: string) =>
+    apiFetch('/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ token, newPassword }),
+    }),
 }
 
 // ─── Resume API ───────────────────────────────────────────────

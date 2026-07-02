@@ -71,7 +71,7 @@ export default function Testimonial() {
   if (!isLoading && testimonials.length === 0) return null
 
   return (
-    <section className='px-4 md:px-8 mt-6'>
+    <section className='px-4 md:px-8 mt-6 mb-24'>
       <div className='max-w-6xl mx-auto'>
         <div className='grid lg:grid-cols-3 gap-6 max-lg:max-w-2xl mb-12 md:mb-16'>
           <div className='col-span-2'>

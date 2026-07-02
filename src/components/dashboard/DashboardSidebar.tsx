@@ -107,8 +107,18 @@ export default function DashboardSidebar() {
           active={location.pathname === '/feedback'}
           onClick={() => navigate('/feedback')}
         />
-        <NavItem icon={<Settings className='w-4 h-4' />} label='Settings' />
-        <NavItem icon={<HelpCircle className='w-4 h-4' />} label='Help' />
+        <NavItem
+          icon={<Settings className='w-4 h-4' />}
+          label='Settings'
+          active={location.pathname === '/settings'}
+          onClick={() => navigate('/settings')}
+        />
+        <NavItem
+          icon={<HelpCircle className='w-4 h-4' />}
+          label='Help'
+          active={location.pathname === '/help'}
+          onClick={() => navigate('/help')}
+        />
         {user?.role === 'admin' && (
           <div className='mt-1 pt-1 border-t border-white/10'>
             <NavItem
