@@ -10,6 +10,7 @@ import Footer from '@/components/landing/Footer'
 import Testimonial from '@/components/landing/Testimonial'
 import Contact from '@/components/landing/Contact'
 import AdaptedHero from '@/components/landing/Ahero'
+import About from '@/components/landing/About'
 const Index = () => {
   return (
     <div className='min-h-screen bg-background'>
@@ -23,6 +24,7 @@ const Index = () => {
       {/* <Testimonials /> */}
       {/* <Pricing /> */}
       <CTASection />
+      <About />
       {/* <Contact /> */}
       <Footer />
     </div>
