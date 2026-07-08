@@ -5,7 +5,7 @@
  */
 export default function About() {
   return (
-    <section className='py-20 px-4 md:px-8'>
+    <section id='about' className='py-20 px-4 md:px-8'>
       <div className='max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12'>
         {/* Image side */}
         <div className='relative shadow-elegant rounded-2xl overflow-hidden shrink-0 max-w-md w-full'>
