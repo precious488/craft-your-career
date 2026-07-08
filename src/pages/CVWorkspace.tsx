@@ -25,7 +25,7 @@ import CVSectionNav, {
 import ATSScorePanel from '@/components/builder/ATSScorePanel'
 import { useResume, ResumeData } from '@/contexts/ResumeContext'
 import { useDownloadPDF } from '@/hooks/useDownloadPDF'
-
+import { APIError } from '@/lib/api'
 import PersonalInfoForm from '@/components/builder/sections/PersonalInfoForm'
 import SummaryForm from '@/components/builder/sections/SummaryForm'
 import ExperienceForm from '@/components/builder/sections/ExperienceForm'
@@ -52,6 +52,7 @@ export default function CVWorkspace() {
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved'>(
     'idle',
   )
+  const [saveError, setSaveError] = useState('')
   const [previewOpen, setPreviewOpen] = useState(false)
   const saveTimer = useRef<ReturnType<typeof setTimeout>>()
 
@@ -62,12 +63,18 @@ export default function CVWorkspace() {
   }, [id, setCurrentResume])
 
   // Sync local draft when the loaded resume changes (e.g. first load)
+  const hasLoadedRef = useRef(false)
+
   useEffect(() => {
-    if (currentResume && currentResume.id === id) {
+    if (currentResume && currentResume.id === id && !hasLoadedRef.current) {
       setDraft(currentResume)
+      hasLoadedRef.current = true
     }
   }, [currentResume, id])
 
+  useEffect(() => {
+    hasLoadedRef.current = false
+  }, [id])
   // Debounced autosave whenever draft changes
   const persist = useCallback(
     (next: ResumeData) => {
@@ -79,8 +86,26 @@ export default function CVWorkspace() {
           await updateResume(id, next)
           setSaveState('saved')
           setTimeout(() => setSaveState('idle'), 1500)
-        } catch {
+        } catch (err) {
           setSaveState('idle')
+          if (
+            err instanceof APIError &&
+            err.body &&
+            typeof err.body === 'object' &&
+            'details' in err.body
+          ) {
+            const details = (err.body as { details?: Record<string, string[]> })
+              .details
+            if (details) {
+              const firstError = Object.values(details)[0]?.[0]
+              setSaveError(
+                firstError ?? 'Please check your input and try again.',
+              )
+            }
+          } else {
+            setSaveError('Failed to save. Check your connection and try again.')
+          }
+          setTimeout(() => setSaveError(''), 5000)
         }
       }, SAVE_DEBOUNCE_MS)
     },
@@ -140,6 +165,11 @@ export default function CVWorkspace() {
               className='h-8 max-w-[220px] font-medium border-transparent hover:border-input focus:border-input bg-transparent'
             />
             <SaveIndicator state={saveState} />
+            {saveError && (
+              <span className='text-xs text-destructive bg-destructive/10 px-2 py-1 rounded-md'>
+                {saveError}
+              </span>
+            )}
           </div>
 
           <div className='flex items-center gap-2'>

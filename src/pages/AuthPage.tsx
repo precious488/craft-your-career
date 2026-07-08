@@ -210,6 +210,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/contexts/AuthContext'
+import { APIError } from '@/lib/api'
 
 interface AuthPageProps {
   mode?: 'login' | 'register'
@@ -253,8 +254,26 @@ export default function AuthPage({
         navigate('/dashboard')
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong'
-      setError(msg)
+      if (
+        err instanceof APIError &&
+        err.body &&
+        typeof err.body === 'object' &&
+        'details' in err.body
+      ) {
+        const details = (err.body as { details?: Record<string, string[]> })
+          .details
+        if (details) {
+          const allMessages = Object.values(details).flat()
+          setError(allMessages.join(' '))
+        } else {
+          setError(err.message)
+        }
+      } else {
+        const msg = err instanceof Error ? err.message : 'Something went wrong'
+        setError(msg)
+      }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -367,6 +386,37 @@ export default function AuthPage({
                 </button>
               </div>
             </div>
+            {mode === 'register' && form.password && (
+              <ul className='text-xs space-y-0.5 mt-1'>
+                <li
+                  className={
+                    form.password.length >= 8
+                      ? 'text-emerald-600'
+                      : 'text-muted-foreground'
+                  }
+                >
+                  {form.password.length >= 8 ? '✓' : '○'} At least 8 characters
+                </li>
+                <li
+                  className={
+                    /[A-Z]/.test(form.password)
+                      ? 'text-emerald-600'
+                      : 'text-muted-foreground'
+                  }
+                >
+                  {/[A-Z]/.test(form.password) ? '✓' : '○'} One uppercase letter
+                </li>
+                <li
+                  className={
+                    /[0-9]/.test(form.password)
+                      ? 'text-emerald-600'
+                      : 'text-muted-foreground'
+                  }
+                >
+                  {/[0-9]/.test(form.password) ? '✓' : '○'} One number
+                </li>
+              </ul>
+            )}
 
             {error && (
               <div className='text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2'>
