@@ -49,35 +49,60 @@ function NavItem({ icon, label, badge, active, onClick }: NavItemProps) {
   )
 }
 
-export default function DashboardSidebar() {
+// export default function DashboardSidebar() {
+//   const { user, logout } = useAuth()
+//   const { resumes, createResume } = useResume()
+//   const navigate = useNavigate()
+//   const location = useLocation()
+
+//   const limit = user?.role === 'free' ? 3 : Infinity
+//   const used = resumes.length
+
+//   async function handleCreate() {
+//     const id = await createResume()
+//     navigate(`/builder/${id}`)
+//   }
+
+//   async function handleLogout() {
+//     await logout()
+//     navigate('/')
+//   }
+export default function DashboardSidebar({
+  onNavigate,
+}: { onNavigate?: () => void } = {}) {
   const { user, logout } = useAuth()
-  const { resumes, createResume } = useResume()
+  const { createResume } = useResume()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const limit = user?.role === 'free' ? 3 : Infinity
-  const used = resumes.length
-
   async function handleCreate() {
     const id = await createResume()
+    onNavigate?.()
     navigate(`/builder/${id}`)
   }
 
   async function handleLogout() {
     await logout()
+    onNavigate?.()
     navigate('/')
   }
-
   return (
+    // <aside
+    //   className='w-64 min-w-64 h-screen sticky top-0 flex flex-col px-4 py-6 overflow-y-auto'
     <aside
-      className='w-64 min-w-64 h-screen sticky top-0 flex flex-col px-4 py-6 overflow-y-auto'
+      className='w-64 min-w-64 h-full flex flex-col px-4 py-6 overflow-y-auto'
       style={{
         background:
           'linear-gradient(165deg, #2a1f6e 0%, #4f3bb8 45%, #6c4fd4 100%)',
       }}
     >
       {/* Logo */}
-      <Link to='/' className='flex items-center gap-2 px-2 mb-6'>
+      {/* <Link to='/' className='flex items-center gap-2 px-2 mb-6'> */}
+      <Link
+        to='/'
+        onClick={() => onNavigate?.()}
+        className='flex items-center gap-2 px-2 mb-6'
+      >
         <div className='w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center'>
           <FileText className='w-4 h-4 text-white' />
         </div>
@@ -99,25 +124,37 @@ export default function DashboardSidebar() {
           icon={<LayoutDashboard className='w-4 h-4' />}
           label='My Dashboard'
           active={location.pathname === '/dashboard'}
-          onClick={() => navigate('/dashboard')}
+          onClick={() => {
+            onNavigate?.()
+            navigate('/dashboard')
+          }}
         />
         <NavItem
           icon={<MessageSquare className='w-4 h-4' />}
           label='Feedback'
           active={location.pathname === '/feedback'}
-          onClick={() => navigate('/feedback')}
+          onClick={() => {
+            onNavigate?.()
+            navigate('/feedback')
+          }}
         />
         <NavItem
           icon={<Settings className='w-4 h-4' />}
           label='Settings'
           active={location.pathname === '/settings'}
-          onClick={() => navigate('/settings')}
+          onClick={() => {
+            onNavigate?.()
+            navigate('/settings')
+          }}
         />
         <NavItem
           icon={<HelpCircle className='w-4 h-4' />}
           label='Help'
           active={location.pathname === '/help'}
-          onClick={() => navigate('/help')}
+          onClick={() => {
+            onNavigate?.()
+            navigate('/help')
+          }}
         />
         {user?.role === 'admin' && (
           <div className='mt-1 pt-1 border-t border-white/10'>
@@ -125,7 +162,10 @@ export default function DashboardSidebar() {
               icon={<ShieldCheck className='w-4 h-4' />}
               label='Manage Feedback'
               active={location.pathname === '/admin/feedback'}
-              onClick={() => navigate('/admin/feedback')}
+              onClick={() => {
+                onNavigate?.()
+                navigate('/admin/feedback')
+              }}
             />
           </div>
         )}
