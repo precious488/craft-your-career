@@ -1,18 +1,47 @@
-/**
- * ProtectedRoute.tsx — Redirect unauthenticated users to /login
- * Usage in App.tsx:
- *   <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
- */
+// /**
+//  * ProtectedRoute.tsx — Redirect unauthenticated users to /login
+//  * Usage in App.tsx:
+//  *   <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+//  */
+// import { Navigate, useLocation } from 'react-router-dom'
+// import { useAuth } from '@/contexts/AuthContext'
+// import { Loader2 } from 'lucide-react'
+
+// export default function ProtectedRoute({
+//   children,
+// }: {
+//   children: React.ReactNode
+// }) {
+//   const { isAuthenticated, isLoading } = useAuth()
+//   const location = useLocation()
+
+//   if (isLoading) {
+//     return (
+//       <div className='min-h-screen flex items-center justify-center bg-background'>
+//         <Loader2 className='w-8 h-8 animate-spin text-primary' />
+//       </div>
+//     )
+//   }
+
+//   if (!isAuthenticated) {
+//     return <Navigate to='/login' state={{ from: location }} replace />
+//   }
+
+//   return <>{children}</>
+// }
+
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Loader2 } from 'lucide-react'
 
 export default function ProtectedRoute({
   children,
+  adminOnly = false,
 }: {
   children: React.ReactNode
+  adminOnly?: boolean
 }) {
-  const { isAuthenticated, isLoading } = useAuth()
+  const { user, isAuthenticated, isLoading } = useAuth()
   const location = useLocation()
 
   if (isLoading) {
@@ -25,6 +54,10 @@ export default function ProtectedRoute({
 
   if (!isAuthenticated) {
     return <Navigate to='/login' state={{ from: location }} replace />
+  }
+
+  if (adminOnly && user?.role !== 'admin') {
+    return <Navigate to='/dashboard' replace />
   }
 
   return <>{children}</>

@@ -17,6 +17,7 @@ import { ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
 import { useResume } from '@/contexts/ResumeContext'
+import { Users } from 'lucide-react'
 
 interface NavItemProps {
   icon: React.ReactNode
@@ -165,6 +166,15 @@ export default function DashboardSidebar({
               onClick={() => {
                 onNavigate?.()
                 navigate('/admin/feedback')
+              }}
+            />
+            <NavItem
+              icon={<Users className='w-4 h-4' />}
+              label='Manage Users'
+              active={location.pathname === '/admin/users'}
+              onClick={() => {
+                onNavigate?.()
+                navigate('/admin/users')
               }}
             />
           </div>

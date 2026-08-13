@@ -24,6 +24,7 @@ import AuthPage from './pages/AuthPage'
 import NotFound from './pages/NotFound'
 import FeedbackPage from './pages/FeedbackPage'
 import AdminFeedbackPage from './pages/AdminFeedbackPage'
+import AdminUsersPage from './pages/AdminUsersPage'
 import HelpPage from './pages/HelpPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
@@ -91,8 +92,18 @@ const App = () => (
               <Route
                 path='/admin/feedback'
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute adminOnly>
+                    {' '}
+                    {/* ← add adminOnly */}
                     <AdminFeedbackPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/admin/users'
+                element={
+                  <ProtectedRoute adminOnly>
+                    <AdminUsersPage />
                   </ProtectedRoute>
                 }
               />

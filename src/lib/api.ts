@@ -438,3 +438,64 @@ export const feedbackAPI = {
   adminDelete: (id: string) =>
     apiFetch(`/feedback/admin/${id}`, { method: 'DELETE' }),
 }
+
+// ─── Admin: user management ────────────────────────────────────
+export interface AdminUser {
+  _id: string
+  email: string
+  fullName: string
+  role: 'free' | 'pro' | 'admin'
+  isBlocked: boolean
+  blockedAt?: string
+  blockedReason?: string
+  flagged: boolean
+  flagReason?: string
+  flaggedAt?: string
+  failedLoginAttempts: number
+  lockedUntil?: string
+  createdAt: string
+}
+
+interface AdminUsersResponse {
+  success: boolean
+  data: {
+    users: AdminUser[]
+    pagination: { page: number; limit: number; total: number; pages: number }
+  }
+}
+
+export const adminUserAPI = {
+  list: (
+    params: {
+      page?: number
+      search?: string
+      status?: 'all' | 'blocked' | 'active'
+      flagged?: boolean
+    } = {},
+  ) => {
+    const query = new URLSearchParams()
+    if (params.page) query.set('page', String(params.page))
+    if (params.search) query.set('search', params.search)
+    if (params.status) query.set('status', params.status)
+    if (params.flagged !== undefined)
+      query.set('flagged', String(params.flagged))
+    return apiFetch<AdminUsersResponse>(`/auth/admin/users?${query.toString()}`)
+  },
+
+  block: (id: string, reason?: string) =>
+    apiFetch<{ success: boolean; data: AdminUser }>(
+      `/auth/admin/users/${id}/block`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({ reason }),
+      },
+    ),
+
+  unblock: (id: string) =>
+    apiFetch<{ success: boolean; data: AdminUser }>(
+      `/auth/admin/users/${id}/unblock`,
+      {
+        method: 'PUT',
+      },
+    ),
+}
