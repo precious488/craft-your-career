@@ -101,7 +101,7 @@ const Dashboard = () => {
             <Button
               onClick={handleCreate}
               disabled={pendingAction === 'create'}
-              className='bg-gradient-primary text-primary-foreground hover:opacity-90'
+              className='bg-rust hover:bg-rust-dark text-paper'
             >
               {pendingAction === 'create' ? (
                 <Loader2 className='w-4 h-4 mr-2 animate-spin' />
@@ -134,7 +134,7 @@ const Dashboard = () => {
               <Button
                 onClick={handleCreate}
                 disabled={pendingAction === 'create'}
-                className='bg-gradient-primary text-primary-foreground hover:opacity-90'
+                className='bg-rust hover:bg-rust-dark text-paper'
               >
                 {pendingAction === 'create' ? (
                   <Loader2 className='w-4 h-4 mr-2 animate-spin' />
@@ -152,13 +152,13 @@ const Dashboard = () => {
                 animate={{ opacity: 1, y: 0 }}
                 onClick={handleCreate}
                 disabled={pendingAction === 'create'}
-                className='rounded-2xl border-2 border-dashed border-border hover:border-primary/50 bg-card cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-[3/4] hover:shadow-glow disabled:opacity-60'
+                className='rounded-2xl border-2 border-dashed border-border hover:border-rust/50 bg-card cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-[3/4] hover:shadow-lg disabled:opacity-60'
               >
                 {pendingAction === 'create' ? (
-                  <Loader2 className='w-7 h-7 text-primary animate-spin mb-3' />
+                  <Loader2 className='w-7 h-7 text-rust animate-spin mb-3' />
                 ) : (
-                  <div className='w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-3'>
-                    <Plus className='w-7 h-7 text-primary' />
+                  <div className='w-14 h-14 rounded-xl bg-rust/10 flex items-center justify-center mb-3'>
+                    <Plus className='w-7 h-7 text-rust' />
                   </div>
                 )}
                 <p className='font-medium text-foreground'>New Resume</p>
@@ -172,7 +172,7 @@ const Dashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: (i + 1) * 0.05 }}
-                    className='group rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant hover:border-primary/30 transition-all duration-300'
+                    className='group rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant hover:border-rust/30 transition-all duration-300'
                   >
                     {/* Live preview area */}
                     <div

@@ -11,15 +11,38 @@ interface Props {
   onChange: (value: PersonalInfo) => void;
 }
 
-const FIELDS: Array<{ key: keyof PersonalInfo; label: string; placeholder: string; type?: string }> = [
+const FIELDS: Array<{
+  key: keyof PersonalInfo
+  label: string
+  placeholder: string
+  type?: string
+}> = [
   { key: 'fullName', label: 'Full Name', placeholder: 'Jane Smith' },
-  { key: 'title', label: 'Professional Title', placeholder: 'Senior Software Engineer' },
-  { key: 'email', label: 'Email', placeholder: 'jane@example.com', type: 'email' },
-  { key: 'phone', label: 'Phone', placeholder: '+1 (555) 123-4567' },
+  {
+    key: 'title',
+    label: 'Professional Title',
+    placeholder: 'Senior Software Engineer',
+  },
+  {
+    key: 'email',
+    label: 'Email',
+    placeholder: 'jane@example.com',
+    type: 'email',
+  },
+  {
+    key: 'phone',
+    label: 'Phone',
+    placeholder: '+1 (555) 123-4567',
+    type :'Tel',
+  },
   { key: 'location', label: 'Location', placeholder: 'San Francisco, CA' },
   { key: 'website', label: 'Website', placeholder: 'janesmith.dev' },
-  { key: 'linkedin', label: 'LinkedIn', placeholder: 'linkedin.com/in/janesmith' },
-];
+  {
+    key: 'linkedin',
+    label: 'LinkedIn',
+    placeholder: 'linkedin.com/in/janesmith',
+  },
+]
 
 export default function PersonalInfoForm({ value, onChange }: Props) {
   function set(key: keyof PersonalInfo, v: string) {

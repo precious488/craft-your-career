@@ -80,6 +80,7 @@ export default function CertificationsForm({ value, onChange }: Props) {
                   onChange={(e) => update(cert.id, { date: e.target.value })}
                   placeholder="Mar 2024"
                   className="mt-1"
+                  type='date'
                 />
               </div>
               <div className="sm:col-span-3">

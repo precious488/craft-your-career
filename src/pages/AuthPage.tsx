@@ -545,10 +545,11 @@ export default function AuthPage({
   return (
     <div className='min-h-screen flex items-center justify-center bg-desk px-4 relative overflow-hidden'>
       <div
-        className='pointer-events-none absolute inset-0 opacity-40'
+        className='absolute inset-0 bg-cover'
         style={{
-          background:
-            'radial-gradient(ellipse 900px 500px at 50% 0%, #3A2A1B 0%, transparent 60%)',
+          backgroundImage: "url('public/3.jpg')",
+          backgroundPosition: 'center 20%',
+          filter: 'sepia(0.35) saturate(1.1) brightness(0.4)',
         }}
       />
 
@@ -559,7 +560,7 @@ export default function AuthPage({
       >
         {/* Logo */}
         <Link to='/' className='flex items-center justify-center gap-2 mb-8'>
-          <div className='w-10 h-10 rounded-sm bg-gold flex items-center justify-center'>
+          <div className='w-10 h-10 rounded-sm flex items-center justify-center'>
             <FileText className='w-5 h-5 text-desk' />
           </div>
           <span className='text-2xl font-serif font-semibold text-paper'>

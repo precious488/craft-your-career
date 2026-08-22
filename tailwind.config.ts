@@ -136,9 +136,9 @@ export default {
           light: '#3A2A1B',
         },
         rust: {
-          DEFAULT: '#0E5C4A',
-          dark: '#0A4739',
-          light: '#15806A',
+          DEFAULT: '#10A37F',
+          dark: '#0D8A6C',
+          light: '#14C398',
         },
         gold: '#C9A227',
         border: 'hsl(var(--border))',

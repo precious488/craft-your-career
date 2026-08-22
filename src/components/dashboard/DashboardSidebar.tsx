@@ -42,7 +42,7 @@ function NavItem({ icon, label, badge, active, onClick }: NavItemProps) {
       </span>
       <span className='flex-1 text-left'>{label}</span>
       {badge && (
-        <span className='text-[10px] font-semibold uppercase bg-emerald-400/90 text-emerald-950 px-1.5 py-0.5 rounded-md'>
+        <span className='text-[10px] font-semibold uppercase bg-gold text-desk px-1.5 py-0.5 rounded-md'>
           {badge}
         </span>
       )}
@@ -94,7 +94,7 @@ export default function DashboardSidebar({
       className='w-64 min-w-64 h-full flex flex-col px-4 py-6 overflow-y-auto'
       style={{
         background:
-          'linear-gradient(165deg, #2a1f6e 0%, #4f3bb8 45%, #6c4fd4 100%)',
+          'linear-gradient(165deg, #0B4A3A 0%, #0D8A6C 55%, #10A37F 100%)',
       }}
     >
       {/* Logo */}
@@ -113,7 +113,7 @@ export default function DashboardSidebar({
       {/* Create button */}
       <Button
         onClick={handleCreate}
-        className='w-full justify-start gap-2 bg-white text-[#4f3bb8] hover:bg-white/90 font-semibold mb-6 h-11 rounded-xl shadow-lg shadow-black/10'
+        className='w-full justify-start gap-2 bg-gold text-desk hover:bg-gold/90 font-semibold mb-6 h-11 rounded-xl shadow-lg shadow-black/10'
       >
         <Plus className='w-4 h-4' />
         Create New Resume
