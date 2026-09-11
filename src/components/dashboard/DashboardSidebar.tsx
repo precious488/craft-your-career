@@ -94,7 +94,7 @@ export default function DashboardSidebar({
       className='w-64 min-w-64 h-full flex flex-col px-4 py-6 overflow-y-auto'
       style={{
         background:
-          'linear-gradient(165deg, #0B4A3A 0%, #0D8A6C 55%, #10A37F 100%)',
+          'linear-gradient(165deg, #0D2E52 0%, #144F91 55%, #1B6FC9 100%)',
       }}
     >
       {/* Logo */}
