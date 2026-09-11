@@ -310,7 +310,7 @@ const Hero = () => {
       <div
         className='absolute inset-0 bg-cover'
         style={{
-          backgroundImage: "url('public/2.jpg')",
+          backgroundImage: "url('/2.jpg')",
           backgroundPosition: 'center 20%',
           filter: 'sepia(0.35) saturate(1.1) brightness(0.9)',
         }}
