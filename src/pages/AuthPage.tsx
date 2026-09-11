@@ -547,7 +547,7 @@ export default function AuthPage({
       <div
         className='absolute inset-0 bg-cover'
         style={{
-          backgroundImage: "url('public/3.jpg')",
+          backgroundImage: "url('/3.jpg')",
           backgroundPosition: 'center 20%',
           filter: 'sepia(0.35) saturate(1.1) brightness(0.4)',
         }}
